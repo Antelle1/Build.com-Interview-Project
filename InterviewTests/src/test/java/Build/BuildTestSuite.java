@@ -39,34 +39,30 @@ public class BuildTestSuite {
 		//Check if parameter passed from TestNG is 'firefox'
 		if(browser.equalsIgnoreCase("firefox")){
 		//create firefox instance
-			//System.setProperty("webdriver.firefox.marionette", ".\\geckodriver.exe");
-			System.setProperty("webdriver.gecko.driver", "C:\\Users\\Anthony\\Desktop\\SeleniumDriver\\geckodriver-v0.18.0-win64\\geckodriver.exe");
-			driver = new FirefoxDriver();
+		System.setProperty("webdriver.gecko.driver", ".\\geckodriver.exe");
+		driver = new FirefoxDriver();
 		}
 		//Check if parameter passed as 'chrome'
 		else if(browser.equalsIgnoreCase("chrome")){
 			//set path to chromedriver.exe
-			//System.setProperty("webdriver.chrome.driver",".\\chromedriver.exe");
-			System.setProperty("webdriver.chrome.driver","C:\\Users\\Anthony\\Desktop\\SeleniumDriver\\chromedriver_win32\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",".\\chromedriver.exe");
 			//create chrome instance
 			driver = new ChromeDriver();
 		}
 		//Check if parameter passed as 'Edge'
 				else if(browser.equalsIgnoreCase("Edge")){
 					//set path to Edge.exe
-				//	System.setProperty("webdriver.edge.driver",".\\MicrosoftWebDriver.exe");
-					System.setProperty("webdriver.edge.driver","C:\\Users\\Anthony\\Desktop\\SeleniumDriver\\MicrosoftWebDriver.exe");
-					//create Edge instance
-					driver = new EdgeDriver();
+				System.setProperty("webdriver.edge.driver",".\\MicrosoftWebDriver.exe");
+				//create Edge instance
+				driver = new EdgeDriver();
 				}
 				else if(browser.equalsIgnoreCase("ie")){
 					//set path to Edge.exe
-				//	System.setProperty("webdriver.edge.driver",".\\IEDriverServer.exe");
+				System.setProperty("webdriver.edge.driver",".\\IEDriverServer.exe");
 					// Create the DesiredCapability object of InternetExplorer
 					 DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
 					// Settings to Accept the SSL Certificate in the Capability object
 					 capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-					System.setProperty("webdriver.ie.driver","C:\\Users\\Anthony\\Desktop\\SeleniumDriver\\IEDriverServer_Win32_3.5.0\\IEDriverServer.exe");
 					//create Edge instance
 					driver = new InternetExplorerDriver(capabilities);
 				}
@@ -81,7 +77,7 @@ public class BuildTestSuite {
 		// maximize the browser window.
 		 baseUrl = "https://www.build.com";
 		 driver.get(baseUrl);
-		 Thread.sleep(5000L);
+		 driver.manage().deleteAllCookies();
 		 driver.manage().window().setSize(new Dimension(1700, 1200));
 		 driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS); 
 		 Thread.sleep(20000L);
@@ -90,13 +86,12 @@ public class BuildTestSuite {
   
   @Test(priority=1)
   public void SearchandAddProducts() throws InterruptedException {
-	   Thread.sleep(10000L);
-	   BuildSite.emailjunk();
-	  Thread.sleep(6000);
+	  BuildSite.emailjunk();
+	  Thread.sleep(2000);
 	  BuildSite.SetSearchTextBox("Suede Kohler K-6626-6U" );
-	 Thread.sleep(10000L);
+	 Thread.sleep(2000L);
 	     BuildSite.ClickSiteSearch();
-	     Thread.sleep(5000L);
+	     Thread.sleep(2000L);
 	      JavascriptExecutor je = (JavascriptExecutor) driver;
 		  WebElement element = driver.findElement(By.xpath(".//*[@id='configure-product-wrap']/button"));
 		  je.executeScript("arguments[0].scrollIntoView(true);",element);
@@ -109,10 +104,10 @@ public class BuildTestSuite {
   public void TakesYouToShoppingCartPage() throws InterruptedException {
 	 BuildSite = new PageObjects(driver);
 	 System.out.println("This takes you to the Shopping cart page");
-	 Thread.sleep(5000L);
+	 Thread.sleep(2000L);
 	 BuildSite.CheckoutButton();
 	 System.out.println("This take you to the secure Checkout page");
-	 Thread.sleep(5000L);
+	 Thread.sleep(2000L);
 	 
 	
  }
@@ -121,14 +116,13 @@ public class BuildTestSuite {
 	 BuildSite = new PageObjects(driver);
 	 BuildSite.SecureCheckoutButton();
 	 System.out.println("This take you to the secure Checkout page");
-	 //Thread.sleep(5000L);
+	 
 	 
  }
  
  @Test(priority=4)
  public void TakesYouToCheckoutGuestPage() throws InterruptedException {
 	 BuildSite = new PageObjects(driver);
-	 // Thread.sleep(5000L);
 	 BuildSite.CheckOutGuestButton();
 	 System.out.println("This take you to the Checkout as Guest page");
 	 
@@ -139,7 +133,6 @@ public class BuildTestSuite {
  public void FillCustomerCreditCardInfo() throws InterruptedException {
 	 System.out.println("This fills out customer info ");
 	 BuildSite = new PageObjects(driver);
-	 //Thread.sleep(5000L);
 	 BuildSite.FirstNametextbox("Anthony");
 	 BuildSite.LastNametextbox("Njoroge");
 	 BuildSite.Addresstextbox("1005 Armor Dr");
